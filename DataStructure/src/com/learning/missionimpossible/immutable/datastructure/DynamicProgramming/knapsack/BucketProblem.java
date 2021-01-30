@@ -1,6 +1,6 @@
 package com.learning.missionimpossible.immutable.datastructure.DynamicProgramming.knapsack;
 
-public class BucketProblem {
+public class  BucketProblem {
 
     public static void main(String[] args) {
 

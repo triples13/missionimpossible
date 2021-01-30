@@ -2,7 +2,7 @@ package com.learning.missionimpossible.immutable.serializable;
 
 import java.io.Serializable;
 
-public class School implements Serializable {
+public class  School implements Serializable {
 
     private String id;
     private String name;

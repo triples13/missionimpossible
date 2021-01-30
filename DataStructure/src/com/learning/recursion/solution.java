@@ -7,48 +7,31 @@ import java.util.Scanner;
 public class solution {
 
     public static void main(String[] args) {
-        Scanner scn=new Scanner(System.in);
-        int noOfTestCases=scn.nextInt();
-        int i=0;
-        while(i<noOfTestCases){
-            int files=scn.nextInt();
-            int speed=scn.nextInt();
-            int []arr=new int [files];
-            for(int j=0;j<arr.length;j++){
-                 arr[j]=scn.nextInt();
-            }
-            System.out.println(calculateTime(arr,files,speed));
-        }
+
+        int [] arr = {4,5,4,7,3,5,4,6};
+        System.out.println("val:" +calculateTime(arr,8,2));
     }
 
 
 
-    private static int calculateTime(int[] arr, int files, int speed) {
+    private static int calculateTime(int[] arr, int n, int k) {
 
-        Arrays.sort(arr);
-        int totaltime=0 ;
-        int initaltime=0;
-        for(int i=0;i<arr.length;i++) {
+          int [] dp = new int [n];
+          int max = Integer.MIN_VALUE;
 
-                int intialSpeed = speed / files;
-                if(arr[i]<intialSpeed){
-                    initaltime=1;
-                }
-                else {
-                    initaltime = (int) Math.ceil((double) arr[i] / intialSpeed);
+           for(int i=1;i<n;i++){
 
-                }
-            System.out.println("time:"+i+initaltime);
-                totaltime = totaltime + initaltime;
-                for (int j = i + 1; j < arr.length; j++) {
-                    arr[j] = arr[j] - (initaltime * intialSpeed);
+               for(int j=0;j<i;j++){
+                   int x = arr[i]^arr[j];
 
-                }
-                files--;
+                   if(x==k) {
+                       dp[i] = Math.max(dp[i], 1 + dp[j]);
+                       max = Math.max(dp[i],max);
+                   }
+               }
+           }
 
-            }
-
-        return totaltime;
+           return max;
     }
 
 

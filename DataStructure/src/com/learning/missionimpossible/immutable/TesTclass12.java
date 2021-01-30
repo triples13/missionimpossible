@@ -1,5 +1,10 @@
 package com.learning.missionimpossible.immutable;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 class A1 {
     public int i;
     protected int j;
@@ -21,6 +26,21 @@ public class TesTclass12 {
     }
 
     public static void main(String args[]){
+
+        NullableBook nullableBook = new NullableBook(Optional.of(null));
+        Optional<String> name = nullableBook.getBookName();
+      //  name.isPresent(System.out::println).orElse("Empty");
+
+
+      String a="abc";
+      String b = new String ("abc");
+      Map<String,Integer> hmap = new HashMap<>();
+      hmap.put(a,10);
+      hmap.put(b,20);
+      hmap.put(new String("abc"),30);
+
+        System.out.println(hmap.get("abc"));
+
 
 
         long out = findBigNO(6);
@@ -79,4 +99,20 @@ public class TesTclass12 {
 }
 class Men {
     public int number;
+}
+
+
+class NullableBook{
+
+    Optional<String> bookName;
+
+    NullableBook(Optional<String > name){
+        bookName = name;
+
+    }
+    public Optional<String> getBookName(){
+        return  bookName;
+    }
+
+
 }

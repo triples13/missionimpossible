@@ -1,52 +1,52 @@
 package com.learning.recursion;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 class Test{
-    static String s="hello";
+
+    static boolean [] visited;
+    static int totalCost = Integer.MAX_VALUE;
     public static void main(String []args){
 
-  s="ram";
-  Test t=new Test();
-  int returnvalue=t.check();
-        System.out.println("return value"+returnvalue);
-        System.out.println(t.s);
-        ArrayList a=new ArrayList();
-        ArrayList b=new ArrayList();
-        a.add(2);
-        a.add(3);
-        b=(ArrayList) a.clone();
-        b.add(4);
-        b.remove(4);
-        System.out.println("hey"+a.equals(b));
+        Scanner scn = new Scanner(System.in);
+        int size = scn.nextInt();
 
-        Test t1=new Test();
-        Test t2=new Test();
-        List l=new ArrayList();
-        l.add(t1);
-        l.add(t2);
-        Collections.sort(l);
-        for(int i=0;i<l.size();i++){
-            System.out.println(l.get(i));
-        }
+        int [] arr= new int [size];
+
+        for(int i=0;i<size;i++)
+            arr[i] = scn.nextInt();
+
+        visited = new boolean[arr.length];
+
+        System.out.print(findMinimumJumps(arr,0));
+
     }
 
-    int check(){
-        try{
-            System.out.println("try block'");
-             throw new IOException();
 
+
+    public static int findMinimumJumps(int [] arr,int pos){
+
+        if(pos>arr.length-1 || pos <0){
+            System.out.print(pos);
+            return 0;
         }
-        catch (Exception e){
-            System.out.println("catch");
-          return 2;
-        }
-        finally {
-            System.out.println("finally");
-            return 3;
-        }
+        if(pos==arr.length-1)
+            return arr[pos];
+
+        visited[pos] = true;
+        int forwardCost =0;
+        int backwardCost =0;
+        if(pos+2<=arr.length-1 && !visited[pos+2])
+            forwardCost = arr[pos] + findMinimumJumps(arr,pos+2);
+        if(pos-1>=0 && !visited[pos-1])
+            backwardCost =arr[pos] +findMinimumJumps(arr,pos-1);
+
+
+        return Math.min(forwardCost,backwardCost);
     }
 }

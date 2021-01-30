@@ -13,6 +13,8 @@ public class StreamMap {
 
         List<School> schoolList = SchoolDatabase.getAllStudent();
 
+
+
        List<String>  schoolList1 = schoolList.stream().map((school -> {
            return school.getName();
        })).map(String::toUpperCase).collect(Collectors.toList());
