@@ -2,6 +2,7 @@ package com.learning.graph;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class GraphComponent {
 
@@ -103,5 +104,61 @@ public class GraphComponent {
             checkForCycle(x);
 
         return false;
+    }
+
+    public boolean checkCycleInDirectedGraph(){
+        for(int i=0;i<vertices;i++)
+            traversed[i]=false;
+
+        for(int i=0;i<vertices;i++){
+            if(!traversed[i]) {
+                if (checkCycleGraph(i,new Stack<>()))
+                    return true;
+            }
+
+        }
+
+        return false;
+    }
+
+    public int checkTotalComponents(){
+        for(int i=0;i<vertices;i++)
+            traversed[i]=false;
+
+        int count=0;
+        for(int i=0;i<vertices;i++){
+            if(!traversed[i]) {
+                 checkCycleGraph(i,new Stack<>());
+                  count++;
+            }
+        }
+
+        return count;
+
+    }
+
+    public boolean checkCycleGraph(int v,Stack<Integer> stack) {
+
+
+
+        List<Integer> edgeList = graph.connections.get(v);
+        stack.push(v);
+        traversed[v]=true;
+
+            for (int x : edgeList) {
+
+                if (!traversed[x]) {
+                    if (checkCycleGraph(x, stack))
+                        return true;
+                }
+
+                else if(traversed[x] && stack.contains(x))
+                    return true;
+
+
+            }
+
+        stack.pop();
+        return  false;
     }
 }
