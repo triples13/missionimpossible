@@ -161,4 +161,85 @@ public class GraphComponent {
         stack.pop();
         return  false;
     }
+
+    public List<List<Integer>> findAllComponents(){
+
+        for(int i=0;i<vertices;i++)
+            traversed[i]=false;
+
+        List<List<Integer>> outerList = new ArrayList<>();
+
+        for(int i=0;i<vertices;i++){
+            if(!traversed[i]) {
+                List<Integer> innerList = new ArrayList<>();
+                findConnectedComponents(i,innerList);
+                outerList.add(innerList);
+            }
+
+
+        }
+
+        return outerList;
+
+    }
+    public void findConnectedComponents(int vertex,List<Integer> component){
+
+        if(traversed[vertex])
+            return;
+
+        traversed[vertex]=true;
+        component.add(vertex);
+
+        List<Integer> edgeList = graph.connections.get(vertex);
+
+        for(int x:edgeList)
+        {
+            if(!traversed[x])
+                findConnectedComponents(x,component);
+        }
+
+
+    }
+
+    public List<Integer> sortGraphTopological(){
+
+        for(int i=0;i<vertices;i++)
+            traversed[i]=false;
+        Stack<Integer> stack = new Stack<>();
+        for(int i=0;i<vertices;i++){
+            if(!traversed[i])
+                sortGraphTopological(i,stack);
+        }
+
+        List<Integer> list = new ArrayList<>();
+        while(!stack.isEmpty())
+            list.add(stack.pop());
+
+        return list;
+
+    }
+
+    public void sortGraphTopological(int vertex, Stack<Integer> stack) {
+
+        if (traversed[vertex])
+            return;
+
+        traversed[vertex] = true;
+
+        List<Integer> edgeList = graph.connections.get(vertex);
+
+
+            for (int x : edgeList) {
+
+                if (!traversed[x]) {
+                    sortGraphTopological(vertex, stack);
+                    stack.push(x);
+                }
+
+            }
+
+            if(!stack.contains(vertex))
+                stack.push(vertex);
+
+    }
 }

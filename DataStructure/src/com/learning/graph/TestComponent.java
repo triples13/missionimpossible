@@ -49,10 +49,10 @@ public class TestComponent {
         graph1.buildDirectedGraph(6,7);
         graph1.buildDirectedGraph(8,9);
 
-        System.out.printf("total number of connected components:"+graph1.checkTotalComponents());
+       // System.out.printf("total number of connected components:"+graph1.checkTotalComponents());
 
 
-
+        System.out.println("all connected components:"+graph1.findAllComponents());
 
 
 
